@@ -17,17 +17,19 @@ import com.qiaozhu.rest.RESTModel.Student;
 
 @Path("neu")
 @Singleton
+/**
+ * 
+ * @author qiaozhu 
+ *
+ */
 public class StudentServiceImpl implements StudentService {
     static int currentId = 6031;
     Map<Integer, Student> currentStudents = new HashMap<>();
     HashSet<Course> activeCourse = new HashSet<>();
     Program programIS;
-    
-
     public StudentServiceImpl() {
         init();
     }
-
     private void init() {
         //initiate 3 course
         Course cloudComputing = Course.builder().courseName("CloudComputing").credit(4).build();
@@ -43,18 +45,18 @@ public class StudentServiceImpl implements StudentService {
                 .firstName("Serena")
                 .lastName("Wei")
                 .id(6030)
-                .programEnrolled(programIS)
+                .programName(programIS.getProgramName())
                 .imageUrl("fakeURL")
-                .courseRegistered(new HashSet<Course>())
+                .coursesRegistered(new HashSet<String>())
                 .build();
         currentStudents.put(6030,serena);
         Student jack = Student.builder()
                 .firstName("Jack")
                 .lastName("London")
                 .id(6031)
-                .programEnrolled(programIS)
+                .programName(programIS.getProgramName())
                 .imageUrl("fakeURL")
-                .courseRegistered(new HashSet<Course>())
+                .coursesRegistered(new HashSet<String>())
                 .build();
         currentStudents.put(6031,jack);
         

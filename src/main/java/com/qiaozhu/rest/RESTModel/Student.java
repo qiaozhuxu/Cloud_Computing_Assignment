@@ -37,11 +37,11 @@ public class Student {
     @XmlElement(name="image")
     String imageUrl;
     
-    @XmlElement(name="programEnrolled")
-    Program programEnrolled;
+    @XmlElement(name="programName")
+    String programName;
     
-    @XmlElement(name="courseRegistered")
-    HashSet<Course> courseRegistered;
+    @XmlElement(name="coursesRegistered")
+    HashSet<String> coursesRegistered;
     
     Date DOB;
 
