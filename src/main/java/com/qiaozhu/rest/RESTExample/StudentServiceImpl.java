@@ -5,13 +5,16 @@ import java.util.HashSet;
 import java.util.Map;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.qiaozhu.rest.RESTModel.Course;
 import com.qiaozhu.rest.RESTModel.Program;
 import com.qiaozhu.rest.RESTModel.Student;
+
 @Path("neu")
 @Singleton
 public class StudentServiceImpl implements StudentService {
@@ -69,11 +72,15 @@ public class StudentServiceImpl implements StudentService {
         }
         if(currentStudents.containsKey(studentId)) {
             Student student = currentStudents.get(studentId);
-
-            ResponseBuilder builder =  Response.status(Response.Status.OK).entity(student);
-            return builder.build();
-//            return "get student : " + studentId + student.getFirstName();
-            
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            try {
+                String json = ow.writeValueAsString(student);
+                ResponseBuilder builder =  Response.status(Response.Status.OK).entity(json);
+                return builder.build();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return Response.status(Response.Status.NOT_FOUND).entity("There is no student with provided id").build();
+            } 
         }
         return Response.status(Response.Status.NOT_FOUND).entity("There is no student with provided id").build();
         
