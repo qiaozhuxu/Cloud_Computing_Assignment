@@ -1,6 +1,5 @@
 package com.qiaozhu.rest.RESTModel;
 
-import java.io.File;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -9,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -22,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-@XmlRootElement
+@XmlRootElement(name="student")
 public class Student {
     //personal information, required and should not be changed after creation
     @NonNull
@@ -39,6 +37,12 @@ public class Student {
     @XmlElement(name="image")
     String imageUrl;
     
+    @XmlElement(name="programEnrolled")
+    Program programEnrolled;
+    
+    @XmlElement(name="courseRegistered")
+    HashSet<Course> courseRegistered;
+    
     Date DOB;
 
     enum Gender {
@@ -54,8 +58,6 @@ public class Student {
     //school related,can be changed afterwards
     Date EnrollDate;
     Date expectedEndDate;
-    String programEnrolled;
-    HashSet<Course> courseRegistered;
 
     enum Status {
         ACTIVE, INACTIVE;

@@ -1,7 +1,5 @@
 package com.qiaozhu.rest.RESTExample;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,17 +16,17 @@ import com.qiaozhu.rest.RESTModel.Student;
 public interface StudentService {
     @GET
     @Path("/students/")
-    String getStudents();
+    Response getStudents();
     
     @GET
     @Path("/student/{id}")
-    String getStudentProfile(@PathParam("id")String studentId);
+    Response getStudentProfile(@PathParam("id")int studentId);
     
     @PUT
-    @Path("/student")
+    @Path("/student/{id}")
     @Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-    Response updateStudentProfile(Student student);
+    Response updateStudentProfile(@PathParam("id")int studentId, Student student);
     
     @POST
     @Path("/student/")
